@@ -1,4 +1,4 @@
-package com.bstek.urule.springboot;
+package com.paul.urule.springboot;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.bstek.urule.springboot;
+package com.paul.urule.springboot;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
