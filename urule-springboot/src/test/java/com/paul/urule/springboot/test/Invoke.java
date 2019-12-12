@@ -12,10 +12,13 @@ import com.bstek.urule.runtime.rete.ReteInstance;
 import com.bstek.urule.runtime.service.KnowledgeService;
 import com.paul.urule.springboot.Application;
 import com.paul.urule.springboot.model.Customer;
+import com.paul.urule.springboot.model.Order;
+import com.paul.urule.springboot.model.Parameter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,10 +41,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = Application.class)
 @ImportResource({"classpath:urule-console-context.xml"})
 
+//主要测试决策集和决策流的相关知识包
 public class Invoke {
 
 
     //测试知识包规则集
+    //普通规则包括rule1和rule2两个规则，执行顺序为从上到下
     //第一种方法
     @Test
     public void doTest() throws  Exception{
@@ -54,10 +59,9 @@ public class Invoke {
         KnowledgeSession session = KnowledgeSessionFactory.newKnowledgeSession(knowledgePackage);
 
         Customer customer = new Customer();
-        customer.setAge(20);
-        customer.setLevel(3);
-        customer.setMarried(false);
-        //customer.setName("");
+        customer.setAge(17);
+        customer.setCar(false);
+        //customer.setMarried(false);
      /*   GeneralEntity generalEntity = new GeneralEntity("com.paul.urule.springboot.model.Customer");
         generalEntity.put("age",20);*/
         //将业务数据对象customer插入到KnowledgeSession中
@@ -80,7 +84,6 @@ public class Invoke {
             System.out.println("name的值为：" + name);
             System.out.println(customer);
             System.out.println("name的值为：" + customer.getName());
-
 
         //获取计算后的result值，要通过KnowledgeSession,而不能通过原来的parameter对象
 //        String score = (String) session.getParameter("result");
@@ -171,6 +174,46 @@ public class Invoke {
         batchSession.waitForCompletion();
 
     }
+
+    //测试循环规则集知识包
+    @Test
+    public  void doTest4() throws IOException {
+        KnowledgeService knowledgeService = (KnowledgeService) Utils.getApplicationContext().getBean(KnowledgeService.BEAN_ID);
+        KnowledgePackage knowledgePackage = knowledgeService.getKnowledge("demo/循环规则");
+        KnowledgeSession knowledgeSession = KnowledgeSessionFactory.newKnowledgeSession(knowledgePackage);
+
+        Customer customer  = new Customer();
+        Parameter parameter = new Parameter();
+        //Parameter parameter = new Parameter();
+        List<Order> orderList = new ArrayList<>();
+        orderList.add(new Order(888));
+        orderList.add(new Order(12));
+        orderList.add(new Order(22));
+        orderList.add(new Order(212));
+        orderList.add(new Order(1000));
+        orderList.add(new Order(2656));
+        orderList.add(new Order(1989));
+        orderList.add(new Order(77));
+        customer.setOrders(orderList);
+        knowledgeSession.insert(customer);
+        //knowledgeSession.insert(parameter);
+        knowledgeSession.fireRules();
+        //参数库中的值必须直接从knowledgeSession里面取值
+        Integer total1 = (Integer) knowledgeSession.getParameter("total1");
+        Integer total2 = (Integer) knowledgeSession.getParameter("total2");
+        System.out.println("小于1000的订单数为:" + total1);
+        System.out.println("大于或等于1000的订单数为:" + total2);
+
+        //这样取值为null
+       /* Integer t1 = parameter.getTotal1();
+        Integer t2 = parameter.getTotal2();
+        System.out.println("小于1000的订单数为:" + t1);
+        System.out.println("大于或等于1000的订单数为:" + t2);*/
+
+    }
+
+
+
 
 
 

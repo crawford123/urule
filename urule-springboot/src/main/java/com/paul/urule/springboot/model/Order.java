@@ -24,6 +24,10 @@ public class Order {
     public Order() {
     }
 
+    public Order(int price) {
+        this.price = price;
+    }
+
     public String getName() {
         return this.name;
     }

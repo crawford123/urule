@@ -45,7 +45,7 @@ public class ScoreCardTest {
         customer.setAge(12);
         session.insert(customer);
 
-        //执行规则失败
+        //执行规则失败,需要分析原因
         session.fireRules();
         String score = (String) session.getParameter("score");
         System.out.println("score的值为：" + score);
