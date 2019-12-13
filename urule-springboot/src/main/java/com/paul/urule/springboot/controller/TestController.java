@@ -5,16 +5,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.bstek.urule.console.DefaultUser;
 import com.bstek.urule.exception.RuleException;
 import com.paul.urule.springboot.test.KnowledgePackageTest;
+import com.paul.urule.springboot.utils.LoadXmlUtil;
+import com.paul.urule.springboot.utils.WebApiResponse;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,8 @@ public class TestController {
 
     private Logger logger = LoggerFactory.getLogger(TestController.class);
 
+    @Resource
+    private LoadXmlUtil loadXmlUtil;
 
     private static DefaultUser user = new DefaultUser();
 
@@ -106,5 +109,11 @@ public class TestController {
         return result;
     }
 
+    @RequestMapping(value = "getCptInto/{file}",method = RequestMethod.GET)
+    @ResponseBody
+    public WebApiResponse getDecisionFlowInfo(@PathVariable("file")String file) {
 
+        List<Object> result = loadXmlUtil.loadXml("/demo/" + file);
+        return WebApiResponse.success(result);
+    }
 }
