@@ -4,11 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.bstek.urule.Utils;
 import com.bstek.urule.action.ActionValue;
 import com.bstek.urule.model.GeneralEntity;
-import com.bstek.urule.model.rete.RuleData;
 import com.bstek.urule.runtime.*;
 import com.bstek.urule.runtime.response.FlowExecutionResponse;
 import com.bstek.urule.runtime.response.RuleExecutionResponse;
-import com.bstek.urule.runtime.rete.ReteInstance;
 import com.bstek.urule.runtime.service.KnowledgeService;
 import com.paul.urule.springboot.Application;
 import com.paul.urule.springboot.model.Customer;
@@ -16,14 +14,13 @@ import com.paul.urule.springboot.model.Order;
 import com.paul.urule.springboot.model.Parameter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 /**
@@ -66,9 +63,9 @@ public class Invoke {
         generalEntity.put("age",20);*/
         //将业务数据对象customer插入到KnowledgeSession中
         session.insert(customer);
-        List<RuleData> ruleDataList = session.getAllRuleData();
+       /* List<RuleData> ruleDataList = session.getAllRuleData();
         List<ReteInstance> reteInstanceList = session.getReteInstanceList();
-        List<KnowledgePackage> knowledgePackageList = session.getKnowledgePackageList();
+        List<KnowledgePackage> knowledgePackageList = session.getKnowledgePackageList();*/
         // System.out.println("ruleDataList的值为：" + ruleDataList);
             //执行所有满足条件的规则
             //执行规则流
