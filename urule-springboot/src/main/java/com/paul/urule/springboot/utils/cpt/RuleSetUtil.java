@@ -222,7 +222,6 @@ public class RuleSetUtil {
                             criterionMap.put("criterions", newCriterions);
                         }
                     }
-
                     //增加actionName字段
                     //解析other对象的信息
                     Map<String,Object> otherMap = BeanUtil.beanToMap(ruleMap.get("other"));

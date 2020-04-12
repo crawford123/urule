@@ -1,5 +1,6 @@
 package com.paul.urule.springboot.controller;
 
+import cn.hutool.core.lang.Console;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -241,84 +242,84 @@ public class TestController {
         List<Object> dataList = new ArrayList<>();
         dataList.add(ruleSet);
         String json1 = JSON.toJSONString(dataList);
-        String json = "{\n" +
-                "    \"libraries\": [\n" +
-                "        {\n" +
-                "            \"path\": \"jcr:/demo/指标库.vl.xml\",\n" +
-                "            \"type\": \"Variable\"\n" +
-                "        }\n" +
-                "    ],\n" +
-                "    \"remark\": \"\",\n" +
-                "    \"rules\": [\n" +
-                "        {\n" +
-                "            \"lhs\": {\n" +
-                "                \"criterion\": {\n" +
-                "                    \"criterions\": [\n" +
-                "                        {\n" +
-                "                            \"id\": \"[变量]结果.决策表结果【大于】[字符]2121\",\n" +
-                "                            \"left\": {\n" +
-                "                                \"id\": \"[变量]结果.决策表结果\",\n" +
-                "                                \"leftPart\": {\n" +
-                "                                    \"datatype\": \"String\",\n" +
-                "                                    \"id\": \"[变量]结果.决策表结果\",\n" +
-                "                                    \"variableCategory\": \"结果\",\n" +
-                "                                    \"variableLabel\": \"决策表结果\",\n" +
-                "                                    \"variableName\": \"approve\"\n" +
-                "                                },\n" +
-                "                                \"type\": \"variable\"\n" +
-                "                            },\n" +
-                "                            \"op\": \"GreaterThen\",\n" +
-                "                            \"parent\": {\n" +
-                "                                \"$ref\": \"$.rules[0].lhs.criterion\"\n" +
-                "                            },\n" +
-                "                            \"value\": {\n" +
-                "                                \"content\": \"2121\",\n" +
-                "                                \"id\": \"[字符]2121\",\n" +
-                "                                \"valueType\": \"Input\"\n" +
-                "                            }\n" +
-                "                        },\n" +
-                "                        {\n" +
-                "                            \"id\": \"[变量]指标库.手机状态【大于】[字符]2121\",\n" +
-                "                            \"left\": {\n" +
-                "                                \"id\": \"[变量]指标库.手机状态\",\n" +
-                "                                \"leftPart\": {\n" +
-                "                                    \"datatype\": \"String\",\n" +
-                "                                    \"id\": \"[变量]指标库.手机状态\",\n" +
-                "                                    \"variableCategory\": \"指标库\",\n" +
-                "                                    \"variableLabel\": \"手机状态\",\n" +
-                "                                    \"variableName\": \"SCqry0006\"\n" +
-                "                                },\n" +
-                "                                \"type\": \"variable\"\n" +
-                "                            },\n" +
-                "                            \"op\": \"GreaterThen\",\n" +
-                "                            \"parent\": {\n" +
-                "                                \"$ref\": \"$.rules[0].lhs.criterion\"\n" +
-                "                            },\n" +
-                "                            \"value\": {\n" +
-                "                                \"content\": \"2121\",\n" +
-                "                                \"id\": \"[字符]2121\",\n" +
-                "                                \"valueType\": \"Input\"\n" +
-                "                            }\n" +
-                "                        }\n" +
-                "                    ],\n" +
-                "                    \"junctionType\": \"and\"\n" +
-                "                }\n" +
-                "            },\n" +
-                "            \"loopRule\": false,\n" +
-                "            \"name\": \"rule\",\n" +
-                "            \"other\": {},\n" +
-                "            \"remark\": \"\",\n" +
-                "            \"rhs\": {\n" +
-                "                \"actions\": []\n" +
-                "            }\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";
+        Console.log("json1:{}", json1);
         List<Object> ruleSetList = JSON.parseObject(json1, List.class);
-        List<Object> resultList = RuleSetUtil.simplifyRuleSetContent(ruleSetList);
+//        List<Object> resultList = RuleSetUtil.simplifyRuleSetContent(ruleSetList);
         RuleSetInfoResponseVo ruleSetInfoResponseVo = new RuleSetInfoResponseVo();
-        ruleSetInfoResponseVo.setRules(resultList);
+        ruleSetInfoResponseVo.setRules(ruleSetList);
         return WebApiResponse.success(ruleSetInfoResponseVo);
     }
-
+    String json = "{\n" +
+            "    \"libraries\": [\n" +
+            "        {\n" +
+            "            \"path\": \"jcr:/demo/指标库.vl.xml\",\n" +
+            "            \"type\": \"Variable\"\n" +
+            "        }\n" +
+            "    ],\n" +
+            "    \"remark\": \"\",\n" +
+            "    \"rules\": [\n" +
+            "        {\n" +
+            "            \"lhs\": {\n" +
+            "                \"criterion\": {\n" +
+            "                    \"criterions\": [\n" +
+            "                        {\n" +
+            "                            \"id\": \"[变量]结果.决策表结果【大于】[字符]2121\",\n" +
+            "                            \"left\": {\n" +
+            "                                \"id\": \"[变量]结果.决策表结果\",\n" +
+            "                                \"leftPart\": {\n" +
+            "                                    \"datatype\": \"String\",\n" +
+            "                                    \"id\": \"[变量]结果.决策表结果\",\n" +
+            "                                    \"variableCategory\": \"结果\",\n" +
+            "                                    \"variableLabel\": \"决策表结果\",\n" +
+            "                                    \"variableName\": \"approve\"\n" +
+            "                                },\n" +
+            "                                \"type\": \"variable\"\n" +
+            "                            },\n" +
+            "                            \"op\": \"GreaterThen\",\n" +
+            "                            \"parent\": {\n" +
+            "                                \"$ref\": \"$.rules[0].lhs.criterion\"\n" +
+            "                            },\n" +
+            "                            \"value\": {\n" +
+            "                                \"content\": \"2121\",\n" +
+            "                                \"id\": \"[字符]2121\",\n" +
+            "                                \"valueType\": \"Input\"\n" +
+            "                            }\n" +
+            "                        },\n" +
+            "                        {\n" +
+            "                            \"id\": \"[变量]指标库.手机状态【大于】[字符]2121\",\n" +
+            "                            \"left\": {\n" +
+            "                                \"id\": \"[变量]指标库.手机状态\",\n" +
+            "                                \"leftPart\": {\n" +
+            "                                    \"datatype\": \"String\",\n" +
+            "                                    \"id\": \"[变量]指标库.手机状态\",\n" +
+            "                                    \"variableCategory\": \"指标库\",\n" +
+            "                                    \"variableLabel\": \"手机状态\",\n" +
+            "                                    \"variableName\": \"SCqry0006\"\n" +
+            "                                },\n" +
+            "                                \"type\": \"variable\"\n" +
+            "                            },\n" +
+            "                            \"op\": \"GreaterThen\",\n" +
+            "                            \"parent\": {\n" +
+            "                                \"$ref\": \"$.rules[0].lhs.criterion\"\n" +
+            "                            },\n" +
+            "                            \"value\": {\n" +
+            "                                \"content\": \"2121\",\n" +
+            "                                \"id\": \"[字符]2121\",\n" +
+            "                                \"valueType\": \"Input\"\n" +
+            "                            }\n" +
+            "                        }\n" +
+            "                    ],\n" +
+            "                    \"junctionType\": \"and\"\n" +
+            "                }\n" +
+            "            },\n" +
+            "            \"loopRule\": false,\n" +
+            "            \"name\": \"rule\",\n" +
+            "            \"other\": {},\n" +
+            "            \"remark\": \"\",\n" +
+            "            \"rhs\": {\n" +
+            "                \"actions\": []\n" +
+            "            }\n" +
+            "        }\n" +
+            "    ]\n" +
+            "}";
 }
