@@ -81,5 +81,59 @@ public class RuleSetTest {
 
     }
 
+    @Test
+    public void testNonRuleContent() throws DocumentException {
+        String content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "\n" +
+                "<rule-set alone=\"false\" debug=\"false\">\n" +
+                "  <import-parameter-library path=\"jcr:/保险行业示例项目37/parameters.pl.xml\"/>\n" +
+                "  <import-variable-library path=\"jcr:/保险行业示例项目37/Customer.vl.xml\"/>\n" +
+                "  <import-constant-library path=\"jcr:/保险行业示例项目37/constants.cl.xml\"/>\n" +
+                "  <import-action-library path=\"jcr:/保险行业示例项目37/actions.al.xml\"/>\n" +
+                "  <remark><![CDATA[]]></remark>\n" +
+                "  <rule name=\"rule2\">\n" +
+                "    <remark><![CDATA[]]></remark>\n" +
+                "    <if>\n" +
+                "      <non>\n" +
+                "        <atom op=\"Equals\">\n" +
+                "          <left var-category=\"客户\" var=\"house\" var-label=\"是否有房\" datatype=\"Boolean\" type=\"variable\"/>\n" +
+                "          <value content=\"true\" type=\"Input\"/>\n" +
+                "        </atom>\n" +
+                "        <atom op=\"Equals\">\n" +
+                "          <left var-category=\"客户\" var=\"married\" var-label=\"婚否\" datatype=\"Boolean\" type=\"variable\"/>\n" +
+                "          <value content=\"true\" type=\"Input\"/>\n" +
+                "        </atom>\n" +
+                "        <non>\n" +
+                "          <atom op=\"LessThenEquals\">\n" +
+                "            <left var-category=\"客户\" var=\"age\" var-label=\"年龄\" datatype=\"Integer\" type=\"variable\"/>\n" +
+                "            <value content=\"18\" type=\"Input\"/>\n" +
+                "          </atom>\n" +
+                "          <atom op=\"LessThenEquals\">\n" +
+                "            <left var-category=\"客户\" var=\"level\" var-label=\"等级\" datatype=\"Integer\" type=\"variable\"/>\n" +
+                "            <value content=\"2\" type=\"Input\"/>\n" +
+                "          </atom>\n" +
+                "        </non>\n" +
+                "      </non>\n" +
+                "    </if>\n" +
+                "    <then>\n" +
+                "      <var-assign var-category=\"客户\" var=\"name\" var-label=\"名称\" datatype=\"String\" type=\"variable\">\n" +
+                "        <value content=\"会员\" type=\"Input\"/>\n" +
+                "      </var-assign>\n" +
+                "    </then>\n" +
+                "    <else>\n" +
+                "      <var-assign var-category=\"客户\" var=\"name\" var-label=\"名称\" datatype=\"String\" type=\"variable\">\n" +
+                "        <value content=\"非会员\" type=\"Input\"/>\n" +
+                "      </var-assign>\n" +
+                "    </else>\n" +
+                "  </rule>\n" +
+                "</rule-set>\n";
+        Document document = DocumentHelper.parseText(content);
+        Element ruleSetElement = document.getRootElement();
+        RuleSetDeserializer ruleSetDeserializer=(RuleSetDeserializer)applicationContext.getBean(RuleSetDeserializer.BEAN_ID);
+        RuleSet ruleSet = ruleSetDeserializer.deserialize(ruleSetElement);
+        Console.log("ruleSet:{}", JSON.toJSONString(ruleSet));
+
+    }
+
 
 }

@@ -1,7 +1,9 @@
 package com.paul.urule.springboot.controller;
 
 import cn.hutool.core.lang.Console;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bstek.urule.RuleException;
@@ -72,8 +74,6 @@ public class TestController {
         user.setUserName("admin");
         user.setAdmin(true);
     }
-
-
 
     @RequestMapping(value = "doTest")
     @ResponseBody
@@ -147,9 +147,9 @@ public class TestController {
 
     @RequestMapping(value = "getRuleInfo",method = RequestMethod.GET)
     @ResponseBody
-    public WebApiResponse getRuleInfo(){
+    public WebApiResponse getRuleInfo(@RequestParam("name")String name){
         Map<String,Object> params = new HashMap<>();
-        params.put("files","/demo/test6.rs.xml");
+        params.put("files", StrUtil.format("/demo/{}.rs.xml", name));
         String body = null;
         try {
             body = HttpUtil.post("http://localhost:8095/risk" + "/urule/common/loadXml", params);
@@ -157,15 +157,18 @@ public class TestController {
             logger.error("评分卡指标集加载异常，原因：",e);
             throw  new RuleException();
         }
-        List<Object> result = null;
+//        List<Object> result = null;
+        List<Object> ruleContentList = null;
         if (StringUtils.isNotBlank(body)){
-            result = JSONObject.parseObject(body, List.class);
-            //Map<String, Object> dataMap = (Map<String, Object>) result.get(0);
-            result = RuleSetUtil.simplifyRuleSetContent(result);
+//            result = JSONObject.parseObject(body, List.class);
+//            Map<String, Object> dataMap = (Map<String, Object>) result.get(0);
+//            result = RuleSetUtil.simplifyRuleSetContent(result);
+            ruleContentList = JSON.parseObject(body, List.class);
         }
-        RuleSetInfoResponseVo ruleSetInfoResponseVo = new RuleSetInfoResponseVo();
-        ruleSetInfoResponseVo.setRules(result);
-        return WebApiResponse.success(ruleSetInfoResponseVo);
+//        RuleSetInfoResponseVo ruleSetInfoResponseVo = new RuleSetInfoResponseVo();
+//        ruleSetInfoResponseVo.setRules(result);
+        logger.info("获取的规则详情报文为：{}", JSONUtil.toJsonPrettyStr(ruleContentList));
+        return WebApiResponse.success(ruleContentList);
     }
 
 

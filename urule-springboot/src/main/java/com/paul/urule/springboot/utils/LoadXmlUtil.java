@@ -52,6 +52,7 @@ public class LoadXmlUtil {
         ActionLibraryDeserializer actionLibraryDeserializer=(ActionLibraryDeserializer)applicationContext.getBean(ActionLibraryDeserializer.BEAN_ID);
         VariableLibraryDeserializer variableLibraryDeserializer=(VariableLibraryDeserializer)applicationContext.getBean(VariableLibraryDeserializer.BEAN_ID);
         ConstantLibraryDeserializer constantLibraryDeserializer=(ConstantLibraryDeserializer)applicationContext.getBean(ConstantLibraryDeserializer.BEAN_ID);
+        ScorecardDeserializer scorecardDeserializer =(ScorecardDeserializer)applicationContext.getBean(ScorecardDeserializer.BEAN_ID);
         RuleSetDeserializer ruleSetDeserializer=(RuleSetDeserializer)applicationContext.getBean(RuleSetDeserializer.BEAN_ID);
         DecisionTableDeserializer decisionTableDeserializer=(DecisionTableDeserializer)applicationContext.getBean(DecisionTableDeserializer.BEAN_ID);
         ScriptDecisionTableDeserializer scriptDecisionTableDeserializer=(ScriptDecisionTableDeserializer)applicationContext.getBean(ScriptDecisionTableDeserializer.BEAN_ID);
@@ -67,6 +68,7 @@ public class LoadXmlUtil {
         deserializers.add(decisionTreeDeserializer);
         deserializers.add(parameterLibraryDeserializer);
         deserializers.add(flowDeserializer);
+        deserializers.add(scorecardDeserializer);
 
         List<Object> result=new ArrayList<Object>();
         files= Utils.decodeURL(files);
