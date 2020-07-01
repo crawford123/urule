@@ -141,7 +141,7 @@ public class TestController {
     public WebApiResponse getDecisionFlowInfo(@PathVariable("file")String file) {
 
         List<Object> result = loadXmlUtil.loadXml("/demo/" + file);
-        return WebApiResponse.success(result);
+        return WebApiResponse.success(JSON.toJSONString(result));
     }
 
 
