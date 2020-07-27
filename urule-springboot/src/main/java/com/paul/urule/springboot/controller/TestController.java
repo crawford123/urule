@@ -138,10 +138,11 @@ public class TestController {
 
     @RequestMapping(value = "getCptInto/{file}",method = RequestMethod.GET)
     @ResponseBody
-    public WebApiResponse getDecisionFlowInfo(@PathVariable("file")String file) {
+    public WebApiResponse getCptInto(@PathVariable("file")String file) {
 
         List<Object> result = loadXmlUtil.loadXml("/demo/" + file);
-        return WebApiResponse.success(JSON.toJSONString(result));
+        logger.info("result:{}", JSONUtil.toJsonPrettyStr(result));
+        return WebApiResponse.success(JSONUtil.toJsonPrettyStr(result));
     }
 
 

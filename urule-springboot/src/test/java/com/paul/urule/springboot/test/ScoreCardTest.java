@@ -2,9 +2,15 @@ package com.paul.urule.springboot.test;
 
 import cn.hutool.core.lang.Console;
 import com.alibaba.fastjson.JSON;
+import com.bstek.urule.Utils;
 import com.bstek.urule.model.scorecard.ScorecardDefinition;
 import com.bstek.urule.parse.deserializer.ScorecardDeserializer;
+import com.bstek.urule.runtime.KnowledgePackage;
+import com.bstek.urule.runtime.KnowledgeSession;
+import com.bstek.urule.runtime.KnowledgeSessionFactory;
+import com.bstek.urule.runtime.service.KnowledgeService;
 import com.paul.urule.springboot.Application;
+import com.paul.urule.springboot.model.Customer;
 import com.paul.urule.springboot.utils.cpt.ScoreCardUtil;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -42,23 +48,27 @@ public class ScoreCardTest {
 
     //测试评分卡
     @Test
-    public  void testScoreCard() throws IOException {
-//
-//        //从Spring中获取KnowledgeService接口实例
-//        KnowledgeService service = (KnowledgeService) Utils.getApplicationContext().getBean(KnowledgeService.BEAN_ID);
-//        //通过KnowledgeService接口获取指定的资源包"projectName/test123"
-//        //执行规则集
-//        KnowledgePackage knowledgePackage = service.getKnowledge("demo/评分卡");
-//        //通过取到的KnowledgePackage对象创建KnowledgeSession对象
-//        KnowledgeSession session = KnowledgeSessionFactory.newKnowledgeSession(knowledgePackage);
-//        Customer customer = new Customer();
-//        customer.setAge(12);
-//        session.insert(customer);
-//
-//        //执行规则失败,需要分析原因
-//        session.fireRules();
-//        String score = (String) session.getParameter("score");
-//        System.out.println("score的值为：" + score);
+    public void testScoreCard() throws IOException {
+        //从Spring中获取KnowledgeService接口实例
+        KnowledgeService service = (KnowledgeService) Utils.getApplicationContext().getBean(KnowledgeService.BEAN_ID);
+        //通过KnowledgeService接口获取指定的资源包"projectName/test123"
+        //执行规则集
+        KnowledgePackage knowledgePackage = service.getKnowledge("demo/评分卡联合条件测试");
+        //通过取到的KnowledgePackage对象创建KnowledgeSession对象
+        KnowledgeSession session = KnowledgeSessionFactory.newKnowledgeSession(knowledgePackage);
+//        GeneralEntity generalEntity = new GeneralEntity("无1");
+//        generalEntity.put("SCqry0004", "male");
+        //        session.insert(generalEntity);
+        Customer customer = new Customer();
+        customer.setMobile("110");
+        session.insert(customer);
+        //执行规则失败,需要分析原因
+        session.fireRules();
+        int level = customer.getLevel();
+        Integer level1 = (Integer) session.getParameter("level");
+        Console.log("level的值为：{}",  level);
+//        BigDecimal score1 = (BigDecimal) session.getParameter("score");
+//        Console.log("score的值为：{}",  score1);
     }
 
     @Test
