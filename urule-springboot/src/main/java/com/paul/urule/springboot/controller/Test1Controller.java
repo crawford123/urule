@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -38,5 +39,18 @@ public class Test1Controller {
     public WebApiResponse testThreadPool2(@RequestBody Map<String, Object> dataMap) throws Exception {
         Object result = testService.testThreadPool2(dataMap);
         return WebApiResponse.success(result);
+    }
+
+    @RequestMapping(value = "testPost", method = RequestMethod.POST)
+    public WebApiResponse testPost(@RequestBody Map<String, Object> dataMap) {
+        return WebApiResponse.success(dataMap);
+    }
+
+    @RequestMapping(value = "testGet", method = RequestMethod.GET)
+    public WebApiResponse testGet() {
+        Map<String, Object> dataMap = new HashMap<>(16);
+        dataMap.put("name", "Tom");
+        dataMap.put("gender", "male");
+        return WebApiResponse.success(dataMap);
     }
 }

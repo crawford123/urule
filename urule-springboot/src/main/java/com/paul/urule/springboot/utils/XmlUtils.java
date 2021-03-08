@@ -1,6 +1,6 @@
 package com.paul.urule.springboot.utils;
 
-import com.bstek.urule.RuleException;
+import com.bstek.urule.exception.RuleException;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;

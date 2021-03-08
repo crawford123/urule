@@ -1,9 +1,9 @@
 package com.paul.urule.springboot.utils;
 
-import com.bstek.urule.RuleException;
 import com.bstek.urule.Utils;
 import com.bstek.urule.console.repository.RepositoryResourceProvider;
 import com.bstek.urule.console.repository.RepositoryService;
+import com.bstek.urule.exception.RuleException;
 import com.bstek.urule.parse.deserializer.*;
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Element;

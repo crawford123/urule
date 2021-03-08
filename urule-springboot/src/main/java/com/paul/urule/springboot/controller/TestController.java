@@ -6,8 +6,7 @@ import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.bstek.urule.RuleException;
-import com.bstek.urule.console.DefaultUser;
+import com.bstek.urule.exception.RuleException;
 import com.bstek.urule.model.rule.RuleSet;
 import com.bstek.urule.parse.deserializer.RuleSetDeserializer;
 import com.paul.urule.springboot.test.KnowledgePackageTest;
@@ -66,14 +65,14 @@ public class TestController {
     @Autowired
     private DecisionTreeUtil decisionTreeUtil;
 
-    private static DefaultUser user = new DefaultUser();
-
-    //urule用户默认权限
-    static {
-        user.setCompanyId("bstek");
-        user.setUserName("admin");
-        user.setAdmin(true);
-    }
+//    private static DefaultUser user = new DefaultUser();
+//
+//    //urule用户默认权限
+//    static {
+//        user.setCompanyId("bstek");
+//        user.setUserName("admin");
+//        user.setAdmin(true);
+//    }
 
     @RequestMapping(value = "doTest")
     @ResponseBody
