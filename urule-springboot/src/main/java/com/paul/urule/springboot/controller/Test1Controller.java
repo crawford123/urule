@@ -41,7 +41,7 @@ public class Test1Controller {
         return WebApiResponse.success(result);
     }
 
-    @RequestMapping(value = "testPost", method = RequestMethod.POST)
+    @RequestMapping(value = "testPost", method = {RequestMethod.POST, RequestMethod.PUT})
     public WebApiResponse testPost(@RequestBody Map<String, Object> dataMap) {
         return WebApiResponse.success(dataMap);
     }
